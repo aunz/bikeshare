@@ -1,0 +1,9 @@
+---
+title: "Bike Share Toronto Ridership Data"
+author: "Kien L"
+output: html_document
+---
+
+```{r setup, include = F}
+knitr::opts_chunk$set(echo = TRUE)
+```
