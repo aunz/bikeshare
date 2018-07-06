@@ -1,0 +1,15 @@
+{
+  "name": "insightproject",
+  "version": "0.0.1",
+  "description": "Bike Share Toronto Ridership Data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kien Ly",
+  "private": true,
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "node-fetch": "^2.1.2"
+  }
+}
