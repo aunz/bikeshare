@@ -25,10 +25,16 @@ m = df.all[!is.na(from_lng) & !is.na(from_lat), .(
     radius = 10,
     color = ~color(N),
     stroke = F,
-    fillOpacity = 0.55,
+    fillOpacity = 0.75,
     label = ~as.character(paste0(from, ' (', N, ' trips)'))
+  ) %>%
+  addLegend(
+    "bottomright",
+    pal = color,
+    values = ~N,
+    title = 'Number of trip',
+    opacity = 1
   )
-  # addCircles(lng = ~lng, lat = ~lat)
 
 print(m)
 

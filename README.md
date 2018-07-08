@@ -37,20 +37,26 @@ By month and week
 * Most popular are Aug (138590), Sep (137384)
 * Least popular are Jan (8431), Feb (8572)
 
-![graph/ride_month.png]
+![](graph/ride_month.png)
 
 By day of the week
 * Most popular is Friday (91623)
 * Least popular is Saturday (96461)
 
+![](graph/ride_week.png)
+
 By day of the month
 * Most popular is on the 10th (55529)
 * Least popular is on the 1st (9681)
+
+![](graph/ride_day_of_month.png)
 
 By hour of the day
 * Busy times are from 11 AM to 1 PM, then from 7 PM to 10 PM
 * Most popular is at 9 PM 🌙 (62008)
 * Least popular is at 8 AM (1110)
+
+![](graph/ride_hour_of_day.png)
 
 ## Trip duration (second)
 * Mean: 948
@@ -89,6 +95,8 @@ By hour of the day
 
 # Station
  201 of them
+
+[![Station Map](graph/station_map.png)](graph/station_map.html)
 
  * The most popular station: Union Station - 9378 origin trips, 12379 destination trips
  * The least popular station: Base Station - 3 origin trips, 4 destination trips
@@ -136,7 +144,10 @@ The two furthest stations are: Bloor St W / Dundas St W and Danforth Ave / Barri
 
 # User
 
+🚲 Riders with membership are quite different from casual riders 🙂 🚲
+
 ### All trips
+
 | User | Number of trip | Total duration (year) | Mean duration per trip (minute ±SE) | Total distance* (Km) | Mean distance* per trip (Km ±SE) | Velocity* (Km/h ±SE) | 
 | --- | --- | --- | --- | --- | --- | --- |
 | All | 585530 | 17.6 | 16 ±0.0268 | 1338299 | 2.28 ±0.0020 | 12.0 ±0.0087 |
@@ -147,21 +158,26 @@ The two furthest stations are: Bloor St W / Dundas St W and Danforth Ave / Barri
 
 
 ### Trips where pick up and drop off locations are the same
+
 | User | Number of trip | Total duration (year) | Mean duration per trip (minute ±SE) |
 | --- | --- | --- | --- |
 | All | 17567 | 1.85 | 55 ±0.4443 |
 | Member | 4958 (28%) | 0.16 (9%) | 17 ±0.3371 |
 | Casual | 12609 (72%) | 1.68 (91%) | 70 ±0.5504 |
 
+In weekdays, there are more members on the bikes. But in weekend, causal riders roam the city.
+![](graph/ride_user_type_day_of_week.png)
+
+In a typical day, members are more active between 11 AM and 2 PM, then between 7 PM and 10 PM. On the other hand, casual riders are more active between 3 PM and 10 PM.
+![](graph/ride_user_type_hour_of_day.png)
+
 
 There are many differences between riders with membership and casual riders
-* Three quarters of the ride trips were clocked by riders with membership.
+* Three quarters of the trips were clocked by riders with membership.
 * But casual riders traversed similar duration and distance compared to riders with membership.
 * Casual riders were more "casual" in speed, riding about 4 Km/h slower compared to members, and with higher variations in speed. Whereas members cruised at a steady 12.9 Km/h.
 * Casual riders also tended to pick up and drop off the bikes at the same place. Of the 17567 trips with the same origin and destination location, casual riders constituted 72% of these trips.
 * Interestingly, for all trips, the average trip duration for causal riders is 29 min, just under the threshold of **overage fee** of 30 minutes, so they do not have to pay extra? But for trips with the same pick up and drop off location, the average duration is 70 minutes. It is possible they were enjoying the slow rides around the city and did not mind the overage fee.
-* In weekdays, there are many more member on the bikes. But in weekend, causal riders roam the city.
-* In a typical day, members are more active between 11 AM and 2 PM, then between 7 PM and 10 PM. On the other hand, casual riders are more active between 3 PM and 10 PM.
 
 # Comments & further work
 * There are many more trips (16x more) in the the most popular month (Aug) compared to the least popular month (Jan), is this real or the data are not complete?

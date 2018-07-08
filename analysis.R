@@ -338,9 +338,9 @@ helper = function (var, xlab, scale_x) {
   NA
 }
 
-# helper('start_date', 'Date')
-# helper('start_m', 'Month', 1:12)
-# helper('start_wk', 'Week')
-# helper('start_w', 'Day of the week', 0:6)
-# helper('start_d', 'Day of the month', 1:31)
+helper('start_date', 'Date')
+helper('start_m', 'Month', 1:12)
+helper('start_wk', 'Week')
+helper('start_w', 'Day of the week', 0:6)
+helper('start_d', 'Day of the month', 1:31)
 helper('start_h', 'Hour of the day', 0:23)
