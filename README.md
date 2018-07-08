@@ -37,6 +37,8 @@ By month and week
 * Most popular are Aug (138590), Sep (137384)
 * Least popular are Jan (8431), Feb (8572)
 
+![graph/ride_month.png]
+
 By day of the week
 * Most popular is Friday (91623)
 * Least popular is Saturday (96461)
@@ -140,6 +142,7 @@ The two furthest stations are: Bloor St W / Dundas St W and Danforth Ave / Barri
 | All | 585530 | 17.6 | 16 ±0.0268 | 1338299 | 2.28 ±0.0020 | 12.0 ±0.0087 |
 | Member | 436692 (75%) | 9.4 (53%) | 11 ±0.0119 | 977951 | 2.24 ±0.0021 | 12.9 ±0.0095 |
 | Casual | 148838 (25%) | 8.3 (47%) | 29 ±0.0909 | 360374 | 2.42 ±0.0047 | 9.0 ±0.0178 |
+
 *Distance and velocity are estimated using Google Matrix Distance API
 
 

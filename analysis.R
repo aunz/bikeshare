@@ -10,7 +10,7 @@ setwd(getSrcDirectory(function () {}))
 
 
 ### Exploratory
-df.all[from == to, .(
+df.all[, .(
   .N, # total number of trip
   dur = sum(dur, na.rm = T) / 3600 / 24 / 365, # total duration (year)
   dur_mean = mean(dur, na.rm = T) / 60, # mean duration per trip (min)
@@ -20,7 +20,7 @@ df.all[from == to, .(
   gg_dis_sd = sd(gg_dis / 1000, na.rm = T),
   vel = mean(vel, na.rm = T),
   vel_sd = sd(vel, na.rm = T) # mean velocity per trip (Km/h)
-), user_type][, `:=`(dur_se = dur_sd / sqrt(N), gg_dis_se = gg_dis_sd / sqrt(N), vel_se = vel_sd / sqrt(N)), user_type][]
+), ][, `:=`(dur_se = dur_sd / sqrt(N), gg_dis_se = gg_dis_sd / sqrt(N), vel_se = vel_sd / sqrt(N)), ][]
 
 
 ### Ridership & total duration vs time
@@ -54,11 +54,11 @@ helper = function (var, xlab, scale_x) {
   NA
 }
 
-# helper('start_date', 'Date')
-# helper('start_m', 'Month', 1:12)
-# helper('start_wk', 'Week')
-# helper('start_w', 'Day of the week', 0:6)
-# helper('start_d', 'Day of the month', 1:31)
+helper('start_date', 'Date')
+helper('start_m', 'Month', 1:12)
+helper('start_wk', 'Week')
+helper('start_w', 'Day of the week', 0:6)
+helper('start_d', 'Day of the month', 1:31)
 helper('start_h', 'Hour of the day', 0:23)
 
 
