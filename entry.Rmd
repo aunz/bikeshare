@@ -19,7 +19,7 @@ Import data, clean up and derive new variables
 knitr::opts_chunk$set(echo = T)
  
 # install libraries
-sapply(setdiff(c('data.table', 'ggplot2', 'plotly', 'geosphere'), installed.packages()), install.packages)
+sapply(setdiff(c('data.table', 'ggplot2', 'plotly', 'geosphere', 'leaflet'), installed.packages()), install.packages)
 library(data.table)
 library(ggplot2)
 library(plotly)
@@ -31,10 +31,15 @@ df.rides = rbindlist(list(
   fread('./data/2016_Bike_Share_Toronto_Ridership_Q3.csv'),
   fread('./data/2016_Bike_Share_Toronto_Ridership_Q4.csv')
 ))
-# df.rides = fread('./data/2016_Bike_Share_Toronto_Ridership_Q4.csv')
+# reset name to shorter
+setnames(
+  df.rides,
+  c('trip_id', 'trip_start_time', 'trip_stop_time', 'trip_duration_seconds', 'from_station_name', 'to_station_name'),
+  c('id', 'start', 'stop', 'dur', 'from', 'to')
+)
 
-# df.geo = fread('./data/station-geo.csv') # lat, lon of stations, results from calling google Geo API
-# df.ma = fread('./data/distancMatrix.csv') # distance and duration from station to station, results from calling google Distance Matrix API
+df.geo = fread('./data/station-geo.csv') # lat, lon of stations, results from calling google Geo API
+df.ma = fread('./data/distancMatrix.csv') # distance and duration from station to station, results from calling google Distance Matrix API
 ```
 
 
@@ -45,17 +50,10 @@ df.rides = rbindlist(list(
 print(dim(df.rides))
 
 # trip id is unique
-print(nrow(df.rides) == length(unique(df.rides$trip_id)))
+print(nrow(df.rides) == length(unique(df.rides$id)))
 
 # the variables
 print(colnames(df.rides))
-
-# reset name to shorter
-setnames(
-  df.rides,
-  c('trip_id', 'trip_start_time', 'trip_stop_time', 'trip_duration_seconds', 'from_station_name', 'to_station_name'),
-  c('id', 'start', 'stop', 'dur', 'from', 'to')
-)
 
 # check classes
 print(str(df.rides))
@@ -130,18 +128,20 @@ df.all[, ge_dis := distGeo(c(from_lng, from_lat), c(to_lng, to_lat)), seq_len(nr
 
 
 # now merge with df.rides
-setnames(df.all, c('distance', 'duration'), c('gg_dur', 'gg_dis'))
+setnames(df.all, c('distance', 'duration'), c('gg_dis', 'gg_dur'))
 df.all = merge(df.rides, df.all, by = c('from', 'to'), all.x = T)
 
 # derive velocity (km/hour) = distance (m) / duration (sec) * 3.6 (to conver m/sec to km/hour)
 df.all[gg_dis != 0 & dur != 0, vel := gg_dis / dur * 3.6]
 df.all[gg_dis != 0 & gg_dur != 0, gg_vel := gg_dis / gg_dur * 3.6]
+df.all[, vel_diff := vel - gg_vel]
 df.all[, dis_diff := ge_dis - gg_dis]
 
 # remove the odd ones
 df.all = df.all[!(start_y < 2016 | stop_y < 2016)]
 
-
+# make route "circle"
+df.all[, route := ifelse(from < to, paste(from, to), paste(to, from)) ]
 
 saveRDS(df.all, file = './tmp/df.all.rds')
 

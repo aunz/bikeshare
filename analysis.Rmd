@@ -32,43 +32,46 @@ library(plotly)
 ### Ridership vs time
 ```{r}
 
-local({
-  helper = function (var, xlab, scale_x) {
-    tmp = df.all[, c(var = var, 'dur'), with = F]
-    setnames(tmp, var, 'var')
-    tmp = tmp[, .(dur = sum(dur), .N), var][, .(
-      var, N, dur, dur_rs = scales::rescale(dur, range(N))
-    )]
-    
-    m = max(tmp$dur_rs)
-    y2breaks = seq(0, m, round(m, -nchar(m) + 1) / 10)
-    m = max(tmp$dur)
-    y2label = seq(0, m, round(m, -nchar(m) + 1) / 10)
-    y2len = min(length(y2breaks), length(y2label))
-    y2breaks = y2breaks[1:y2len]
-    y2label = y2label[1:y2len]
-    p = ggplot(tmp, aes(x = var))
-    p = p + geom_point(aes(y = N, color = 'Number of ride')) + geom_line(aes(y = N, color = 'Number of ride'))
-    p = p + geom_point(aes(y = dur_rs, color = 'Duration of ride')) + geom_line(aes(y = dur_rs, color = 'Duration of ride'))
-    p = p + scale_y_continuous(
-      expand = c(0.1, 0.1),
-      breaks = scales::pretty_breaks(n = 8),
-      name = 'Number of ride',
-      sec.axis = sec_axis(~ ., name = 'Duration of ride (sec)', breaks = y2breaks, labels = y2label)
-    )
-    p = p + theme(legend.position = c(0.105, 0.895))
-    if (!missing(xlab)) p = p + xlab(xlab)
-    if (!missing(scale_x)) p = p + scale_x_continuous(breaks = scale_x)
-    print(p)
-    NA
-  }
+helper = function (var, xlab, scale_x) {
+  tmp = df.all[, c(var = var, 'dur'), with = F]
+  setnames(tmp, var, 'var')
+  tmp = tmp[, .(dur = sum(dur), .N), var][, .(
+    var, N, dur, dur_rs = scales::rescale(dur, range(N))
+  )]
   
-  # helper('start_date', 'Date')
-  # helper('start_m', 'Month', 1:12)
-  # helper('start_wk', 'Week')
-  helper('start_w', 'Day of the week', 0:6)
-  # helper('start_d', 'Day of the month', 1:31)
-  # helper('start_h', 'Hour of the day', 0:23)
-})
+  m = max(tmp$dur_rs)
+  y2breaks = seq(0, m, round(m, -nchar(m) + 1) / 10)
+  m = max(tmp$dur)
+  y2label = seq(0, m, round(m, -nchar(m) + 1) / 10)
+  y2len = min(length(y2breaks), length(y2label))
+  y2breaks = y2breaks[1:y2len]
+  y2label = y2label[1:y2len]
+  p = ggplot(tmp, aes(x = var))
+  p = p + geom_point(aes(y = N, color = 'Number of ride')) + geom_line(aes(y = N, color = 'Number of ride'))
+  p = p + geom_point(aes(y = dur_rs, color = 'Duration of ride')) + geom_line(aes(y = dur_rs, color = 'Duration of ride'))
+  p = p + scale_y_continuous(
+    expand = c(0.1, 0.1),
+    breaks = scales::pretty_breaks(n = 8),
+    name = 'Number of ride',
+    sec.axis = sec_axis(~ ., name = 'Duration of ride (sec)', breaks = y2breaks, labels = y2label)
+  )
+  p = p + theme(legend.position = c(0.105, 0.895))
+  if (!missing(xlab)) p = p + xlab(xlab)
+  if (!missing(scale_x)) p = p + scale_x_continuous(breaks = scale_x)
+  print(p)
+  NA
+}
 
+# helper('start_date', 'Date')
+# helper('start_m', 'Month', 1:12)
+# helper('start_wk', 'Week')
+helper('start_w', 'Day of the week', 0:6)
+# helper('start_d', 'Day of the month', 1:31)
+# helper('start_h', 'Hour of the day', 0:23)})
+
+```
+
+
+### Duration vs distance
+```{r}
 ```
