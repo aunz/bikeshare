@@ -55,7 +55,7 @@ By day of the week
 ![](graph/ride_day_of_week.png)
 
 By day of the month
-* Most popular is on the 10th (55529 trips)
+* Most popular is on the 10th (55529 trips), a big spike compared to the 9th 🤔?
 * Least popular is on the 1st (9681 trips)
 
 ![](graph/ride_day_of_month.png)
@@ -83,7 +83,9 @@ By hour of the day
 # Station
  201 of them
 
-[![Station Map](graph/station_map.png)](graph/station_map.html)
+[![Station Map](graph/station_map.png)](https://aunz.github.io/bikeshare/graph/station_map.html)
+
+Click the image above for the interactive map
 
  * The most popular station: Union Station - 9378 origin trips, 12379 destination trips
  * The least popular station: Base Station - 3 origin trips, 4 destination trips
