@@ -31,23 +31,20 @@ helper = function (var, xlab, scale_x) {
     var, N, dur, dur_rs = scales::rescale(c(0, dur), c(0, max(N)))[-1]
   )]
   
-  m = round(max(tmp$dur_rs))
-  y2breaks = seq(0, m, round(m, -nchar(m) + 1) / 10)
-  m = round(max(tmp$dur))
-  y2label = seq(0, m, round(m, -nchar(m) + 1) / 10)
-  y2len = min(length(y2breaks), length(y2label))
-  y2breaks = y2breaks[1:y2len]
-  y2label = y2label[1:y2len]
+  y2breaks = seq(0, max(tmp$dur_rs), max(tmp$dur_rs) / 10)
+  y2label = round(seq(0, max(tmp$dur), max(tmp$dur) / 10), 1)
   p = ggplot(tmp, aes(x = var))
   p = p + geom_point(aes(y = N, color = 'Number of ride')) + geom_line(aes(y = N, color = 'Number of ride'))
   p = p + geom_point(aes(y = dur_rs, color = 'Duration of ride')) + geom_line(aes(y = dur_rs, color = 'Duration of ride'))
   p = p + scale_y_continuous(
     expand = c(0.1, 0.1),
     breaks = scales::pretty_breaks(n = 8),
+    # limits = c(0, max(tmp$N)),
     name = 'Total number of ride',
     sec.axis = sec_axis(~ ., name = 'Total duration of ride (year)', breaks = y2breaks, labels = y2label)
   )
-  p = p + theme(legend.position = c(0.105, 0.895), legend.title = element_blank())
+  # p = p + theme(legend.position = c(0.105, 0.895), legend.title = element_blank())
+  p = p + theme(legend.title = element_blank())
   if (!missing(xlab)) p = p + xlab(xlab)
   if (!missing(scale_x)) p = p + scale_x_continuous(breaks = scale_x)
   print(p)
@@ -69,14 +66,10 @@ helper = function (var, xlab, scale_x) {
   tmp = tmp[, .(dur = mean(dur) / 60, .N), var][, .(
     var, N, dur, dur_rs = scales::rescale(c(0, dur), c(0, max(N)))[-1]
   )]
+
+  y2breaks = seq(0, max(tmp$dur_rs), max(tmp$dur_rs) / 10)
+  y2label = round(seq(0, max(tmp$dur), max(tmp$dur) / 10), 1)
   
-  m = round(max(tmp$dur_rs))
-  y2breaks = seq(0, m, round(m, -nchar(m) + 1) / 10)
-  m = round(max(tmp$dur))
-  y2label = seq(0, m, round(m, -nchar(m) + 1) / 10)
-  y2len = min(length(y2breaks), length(y2label))
-  y2breaks = y2breaks[1:y2len]
-  y2label = y2label[1:y2len]
   p = ggplot(tmp, aes(x = var))
   p = p + geom_point(aes(y = N, color = 'Number of ride')) + geom_line(aes(y = N, color = 'Number of ride'))
   p = p + geom_point(aes(y = dur_rs, color = 'Duration of ride')) + geom_line(aes(y = dur_rs, color = 'Duration of ride'))
@@ -267,19 +260,15 @@ df.all[from == to, .(vel = mean(vel, na.rm = T)), user_type]
 helper = function (var, xlab, scale_x) {
   tmp = df.all[, c(var = var, 'dur', 'user_type'), with = F]
   setnames(tmp, var, 'var')
-  tmp = tmp[, .(dur = sum(dur) / 3600 / 24, .N), .(var, user_type)][, .(
+  tmp = tmp[, .(dur = sum(dur) / 3600 / 24 / 365, .N), .(var, user_type)][, .(
     var, N, dur,
     user_type = factor(user_type, levels = c('Member', 'Casual')),
     dur_rs = scales::rescale(c(0, dur), c(0, max(N)))[-1]
   )]
   
-  m = max(round(tmp$dur_rs))
-  y2breaks = seq(0, m, round(m, -nchar(m) + 1) / 10)
-  m = max(round(tmp$dur))
-  y2label = seq(0, m, round(m, -nchar(m) + 1) / 10)
-  y2len = min(length(y2breaks), length(y2label))
-  y2breaks = y2breaks[1:y2len]
-  y2label = y2label[1:y2len]
+  y2breaks = seq(0, max(tmp$dur_rs), max(tmp$dur_rs) / 10)
+  y2label = round(seq(0, max(tmp$dur), max(tmp$dur) / 10), 1)
+  
   p = ggplot(tmp, aes(x = var))
   p = p + geom_point(aes(y = N, color = 'Number of ride')) + geom_line(aes(y = N, color = 'Number of ride', linetype = user_type))
   p = p + geom_point(aes(y = dur_rs, color = 'Duration of ride')) + geom_line(aes(y = dur_rs, color = 'Duration of ride', linetype = user_type))
@@ -287,7 +276,7 @@ helper = function (var, xlab, scale_x) {
     expand = c(0.1, 0.1),
     breaks = scales::pretty_breaks(n = 10),
     name = 'Total number of ride',
-    sec.axis = sec_axis(~ ., name = 'Total duration of ride (day)', breaks = y2breaks, labels = y2label)
+    sec.axis = sec_axis(~ ., name = 'Total duration of ride (year)', breaks = y2breaks, labels = y2label)
   )
   # p = p + theme(legend.position = c(0.105, 0.895))
   p = p + guides(color = guide_legend(title = NULL))
@@ -297,11 +286,11 @@ helper = function (var, xlab, scale_x) {
   NA
 }
 
-# helper('start_date', 'Date')
-# helper('start_m', 'Month', 1:12)
-# helper('start_wk', 'Week')
-# helper('start_w', 'Day of the week', 0:6)
-# helper('start_d', 'Day of the month', 1:31)
+helper('start_date', 'Date')
+helper('start_m', 'Month', 1:12)
+helper('start_wk', 'Week')
+helper('start_w', 'Day of the week', 0:6)
+helper('start_d', 'Day of the month', 1:31)
 helper('start_h', 'Hour of the day', 0:23)
 
 
@@ -315,13 +304,9 @@ helper = function (var, xlab, scale_x) {
     dur_rs = scales::rescale(c(0, dur), c(0, max(N)))[-1]
   )]
 
-  m = max(round(tmp$dur_rs))
-  y2breaks = seq(0, m, round(m, -nchar(m) + 1) / 10)
-  m = max(round(tmp$dur))
-  y2label = seq(0, m, round(m, -nchar(m) + 1) / 10)
-  y2len = min(length(y2breaks), length(y2label))
-  y2breaks = y2breaks[1:y2len]
-  y2label = y2label[1:y2len]
+  y2breaks = seq(0, max(tmp$dur_rs), max(tmp$dur_rs) / 10)
+  y2label = round(seq(0, max(tmp$dur), max(tmp$dur) / 10), 1)
+  
   p = ggplot(tmp, aes(x = var))
   p = p + geom_point(aes(y = N, color = 'Number of ride')) + geom_line(aes(y = N, color = 'Number of ride', linetype = user_type))
   p = p + geom_point(aes(y = dur_rs, color = 'Mean duration of ride')) + geom_line(aes(y = dur_rs, color = 'Mean duration of ride', linetype = user_type))

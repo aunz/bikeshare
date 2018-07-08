@@ -28,59 +28,46 @@ There are:
 
 # Trip
 
-
-## Number of trip
 585521 trips
+
+|| Mean | Min | Q1 | Median | Q2 | Max |
+| --- | --- | --- | --- | --- | --- | --- |
+| Duration (second) | 948 | 60 | 437 | 667 | 1038 | 14400 |
+| Distance* (m) | 2286 | 0 | 1254 | 2026 | 3020 | 24778 |
+| Velocity* (Km/h) | 13.0 | 0.003 | 9.0 | 11.6 | 14.1 | 447.4 |
+
+*Distance and velocity were estimated using Google Matrix Distance API
 
 By month and week
 * Most trips occur during summer 🌞, as expected.
-* Most popular are Aug (138590), Sep (137384)
-* Least popular are Jan (8431), Feb (8572)
+* Most popular are Aug (138590 trips), Sep (137384 trips)
+* Least popular are Jan (8431 trips), Feb (8572 trips)
 
 ![](graph/ride_month.png)
 
 By day of the week
-* Most popular is Friday (91623)
-* Least popular is Saturday (96461)
+* Most popular is Friday (91623 trips) by the number of trip
+* Least popular is Saturday (96461 trips) by the number of trip
+* However, by duration of trip:
+  * Most popular is Sunday (2.90 years)
+  * Least popular is Thursday ()
 
-![](graph/ride_week.png)
+![](graph/ride_day_of_week.png)
 
 By day of the month
-* Most popular is on the 10th (55529)
-* Least popular is on the 1st (9681)
+* Most popular is on the 10th (55529 trips)
+* Least popular is on the 1st (9681 trips)
 
 ![](graph/ride_day_of_month.png)
 
 By hour of the day
 * Busy times are from 11 AM to 1 PM, then from 7 PM to 10 PM
-* Most popular is at 9 PM 🌙 (62008)
-* Least popular is at 8 AM (1110)
+* Most popular is at 9 PM 🌙 (62008 trips)
+* Least popular is at 8 AM (1110 trips)
 
 ![](graph/ride_hour_of_day.png)
 
-## Trip duration (second)
-* Mean: 948
-* Min: 60
-* Q1: 437
-* Median: 677
-* Q3: 1038
-* Max: 14400
 
-## Trip distance (m)
-* Mean: 2286
-* Min: 0
-* Q1: 1254
-* Median: 2026
-* Q3: 3020
-* Max: 24778
-
-## Trip velocity (km/h)
-* Mean: 12.968
-* Min: 0.003
-* Q1: 8.947
-* Median: 11.618
-* Q3: 14.124
-* Max: 447.393
 
 ## Observations
 * The number of trip and total trip duration are usually agree with each other by month, by week, by hour; i.e. the more number of trip the higher the total trip duration. However when grouped by **day of the week**, weekends (Saturday and Sunday) have low number of trips but longer total trip duration [graph](). Perhaps people enjoy having a **leisurely ride over the weekends**.
@@ -140,7 +127,7 @@ Not all A -> B trips are the same as B -> A trips. For example, between Bleecker
 A t-test indicates that the duration and velocity from A -> B are significantly different from B -> A. Maybe there are terrestrial differences (slope)?
 
 ### Distance
-The two furthest stations are: Bloor St W / Dundas St W and Danforth Ave / Barrington Ave: 13 Km. No trip was registered on this route.
+The two furthest stations are: Bloor St W / Dundas St W and Danforth Ave / Barrington Ave: 13 Km. No trip was registered on this route *YET* 😎.
 
 # User
 
@@ -154,7 +141,7 @@ The two furthest stations are: Bloor St W / Dundas St W and Danforth Ave / Barri
 | Member | 436692 (75%) | 9.4 (53%) | 11 ±0.0119 | 977951 | 2.24 ±0.0021 | 12.9 ±0.0095 |
 | Casual | 148838 (25%) | 8.3 (47%) | 29 ±0.0909 | 360374 | 2.42 ±0.0047 | 9.0 ±0.0178 |
 
-*Distance and velocity are estimated using Google Matrix Distance API
+*Distance and velocity were estimated using Google Matrix Distance API
 
 
 ### Trips where pick up and drop off locations are the same
@@ -171,6 +158,8 @@ In weekdays, there are more members on the bikes. But in weekend, causal riders 
 In a typical day, members are more active between 11 AM and 2 PM, then between 7 PM and 10 PM. On the other hand, casual riders are more active between 3 PM and 10 PM.
 ![](graph/ride_user_type_hour_of_day.png)
 
+Futhermore, if looking at mean duration of each ride, members spent about 11 minutes in each trip, regardless hour of the day. There are more fluctuation in the mean duration of each ride for casual riders, they spent from an average of 20 minutes tto 33 minutes.
+![](graph/ride_user_type_hour_of_day_mean.png)
 
 There are many differences between riders with membership and casual riders
 * Three quarters of the trips were clocked by riders with membership.
