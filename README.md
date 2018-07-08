@@ -122,10 +122,10 @@ When considering the route from A -> B is the same as the route from B -> A:
 
 Not all A -> B trips are the same as B -> A trips. For example, between Bleecker St (South of Wellesley) (A) and York St / Queens Quay W (B), distance of 3.0 km:
 
-Route | Number of trip | Total duration (hour) | Mean duration (minute) | Velocity (Km/h) | 
---- | --- | --- | --- | --- | --- | --- | 
-A -> B | 690 | 151 | 13 | 27
-B -> A | 510 | 136 | 16 | 23
+| Route | Number of trip | Total duration (hour) | Mean duration (minute) | Velocity (Km/h) | 
+| --- | --- | --- | --- | --- | --- | --- | 
+| A -> B | 690 | 151 | 13 | 27
+| B -> A | 510 | 136 | 16 | 23
 
 A t-test indicates that the duration and velocity from A -> B are significantly different from B -> A. Maybe there are terrestrial differences (slope)?
 
@@ -135,20 +135,20 @@ The two furthest stations are: Bloor St W / Dundas St W and Danforth Ave / Barri
 # User
 
 ### All trips
-User | Number of trip | Total duration (year) | Mean duration per trip (minute ±SE) | Total distance* (Km) | Mean distance* per trip (Km ±SE) | Velocity* (Km/h ±SE) | 
---- | --- | --- | --- | --- | --- | --- | -- |
-All | 585530 | 17.6 | 16 ±0.0268 | 1338299 | 2.28 ±0.0020 | 12.0 ±0.0087
-Member | 436692 (75%) | 9.4 (53%) | 11 ±0.0119 | 977951 | 2.24 ±0.0021 | 12.9 ±0.0095
-Casual | 148838 (25%) | 8.3 (47%) | 29 ±0.0909 | 360374 | 2.42 ±0.0047 | 9.0 ±0.0178
+| User | Number of trip | Total duration (year) | Mean duration per trip (minute ±SE) | Total distance* (Km) | Mean distance* per trip (Km ±SE) | Velocity* (Km/h ±SE) | 
+| --- | --- | --- | --- | --- | --- | --- | -- |
+| All | 585530 | 17.6 | 16 ±0.0268 | 1338299 | 2.28 ±0.0020 | 12.0 ±0.0087
+| Member | 436692 (75%) | 9.4 (53%) | 11 ±0.0119 | 977951 | 2.24 ±0.0021 | 12.9 ±0.0095
+| Casual | 148838 (25%) | 8.3 (47%) | 29 ±0.0909 | 360374 | 2.42 ±0.0047 | 9.0 ±0.0178
 *Distance and velocity are estimated using Google Matrix Distance API
 
 
 ### Trips where pick up and drop off locations are the same
-User | Number of trip | Total duration (year) | Mean duration per trip (minute ±SE)
---- | --- | --- | --- | --- | --- | --- | -- |
-All | 17567 | 1.85 | 55 ±0.4443 | 
-Member | 4958 (28%) | 0.16 (9%) | 17 ±0.3371 |
-Casual | 12609 (72%) | 1.68 (91%) | 70 ±0.5504 |
+| User | Number of trip | Total duration (year) | Mean duration per trip (minute ±SE)
+| --- | --- | --- | --- | --- | --- | --- | -- |
+| All | 17567 | 1.85 | 55 ±0.4443 | 
+| Member | 4958 (28%) | 0.16 (9%) | 17 ±0.3371 |
+| Casual | 12609 (72%) | 1.68 (91%) | 70 ±0.5504 |
 
 
 There are many differences between riders with membership and casual riders
