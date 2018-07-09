@@ -8,5 +8,7 @@ sapply(setdiff(c(
   'plotly',
   'geosphere',
   'leaflet',
+  'DT',
+  'crosstalk',
   'igraph'
 ), installed.packages()), install.packages)

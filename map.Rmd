@@ -1,0 +1,78 @@
+---
+title: "Bike Share Toronto Ridership Data - Stations"
+author: "Kien L"
+date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
+output:
+  html_document:
+    css: style.css
+knit: (function(inputFile, encoding) {
+    rmarkdown::render(
+      inputFile,
+      encoding = encoding,
+      output_file = file.path(dirname(inputFile), 'tmp', 'mapStation.html')
+    )
+  })
+---
+
+
+```{r setup, include = F}
+knitr::opts_chunk$set(echo = F)
+ 
+library(data.table)
+library(htmltools)
+library(leaflet)
+library(DT)
+library(crosstalk)
+
+df.all = readRDS('./tmp/df.all.rds')
+```
+
+
+```{r}
+
+tmp = rbindlist(list(
+  df.all[, .(station = from, lng = from_lng, lat = from_lat)],
+  df.all[, .(station = to, lng = to_lng, lat = to_lat)]
+))
+tmp = tmp[station != '' & !is.na(lng), .(
+  .N,
+  lng = unique(lng),
+  lat = unique(lat)
+), station]
+
+color = colorNumeric('RdBu', tmp[, N], reverse = T, alpha = F)
+
+sd = SharedData$new(tmp)
+
+filter_slider('tripNumber', 'Number of trip', sd, column = ~N, step = 1000, width = '100%')
+
+bscols(
+  leaflet(sd, height = 720) %>%
+  addTiles() %>%
+  addCircleMarkers(
+    lng = ~lng,
+    lat = ~lat,
+    radius = 10,
+    color = ~color(N),
+    stroke = F,
+    fillOpacity = 0.8,
+    label = ~as.character(paste0(station, ' (', N, ' trips)'))
+  ) %>%
+  addLegend(
+    'bottomright',
+    pal = color,
+    values = ~N,
+    title = 'Number of trip',
+    opacity = 1
+  ),
+  datatable(
+    sd,
+    style = 'bootstrap',
+    class = 'compact',
+    width = '100%',
+    options = list(deferRender = T, scrollY = '640px', scroller = T, pageLength = 20))
+)
+
+```
+
+<!-- rmarkdown::render('map.Rmd')  -->
