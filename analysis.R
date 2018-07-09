@@ -1,3 +1,5 @@
+setwd(getSrcDirectory(function () {}))
+
 # install libraries
 library(data.table)
 library(ggplot2)
@@ -5,8 +7,7 @@ library(plotly)
 
 
 # read the data
-setwd(getSrcDirectory(function () {}))
-# df.all = readRDS('./tmp/df.all.rds')
+df.all = readRDS('./tmp/df.all.rds')
 
 
 ### Exploratory
@@ -86,11 +87,11 @@ helper = function (var, xlab, scale_x) {
   NA
 }
 
-# helper('start_date', 'Date')
-# helper('start_m', 'Month', 1:12)
-# helper('start_wk', 'Week')
-# helper('start_w', 'Day of the week', 0:6)
-# helper('start_d', 'Day of the month', 1:31)
+helper('start_date', 'Date')
+helper('start_m', 'Month', 1:12)
+helper('start_wk', 'Week')
+helper('start_w', 'Day of the week', 0:6)
+helper('start_d', 'Day of the month', 1:31)
 helper('start_h', 'Hour of the day', 0:23)
 
 
@@ -121,12 +122,12 @@ helper = function (varX, varY = 'gg_dis', xlab, ylab = 'Trip distance (Km)', sca
   print(p)
   NA
 }
-# helper('start_date', xlab = 'Date')
-# helper('start_m', xlab = 'Month', scale_x = 1:12)
-# helper('start_wk', xlab = 'Week', scale_x = 1:52)
+helper('start_date', xlab = 'Date')
+helper('start_m', xlab = 'Month', scale_x = 1:12)
+helper('start_wk', xlab = 'Week', scale_x = 1:52)
 helper('start_w', xlab = 'Day of the week', scale_x = 0:6)
-# helper('start_d', xlab = 'Day of the month', scale_x = 1:31)
-# helper('start_h', xlab = 'Hour of the day', scale_x = 0:23)
+helper('start_d', xlab = 'Day of the month', scale_x = 1:31)
+helper('start_h', xlab = 'Hour of the day', scale_x = 0:23)
 
 
 
@@ -155,15 +156,15 @@ helper = function (varX, varY = 'vel', xlab, ylab = 'Trip mean velocity (km/h)',
   print(p)
   NA
 }
-# helper('start_date', xlab = 'Date')
+helper('start_date', xlab = 'Date')
 helper('start_m', xlab = 'Month', scale_x = 1:12)
 helper('start_wk', xlab = 'Week', scale_x = 1:52)
 helper('start_w', xlab = 'Day of the week', scale_x = 0:6)
-# helper('start_d', xlab = 'Day of the month', scale_x = 1:31)
+helper('start_d', xlab = 'Day of the month', scale_x = 1:31)
 helper('start_h', xlab = 'Hour of the day', scale_x = 0:23)
 
 # Cut vel into groups
-# table(cut(df.all[, vel], c(0, 5, 10, 15, 20, 25, 50, 75, 100, 200, 1000)))
+table(cut(df.all[, vel], c(0, 5, 10, 15, 20, 25, 50, 75, 100, 200, 1000)))
 
 
 ### Duration vs distance
@@ -172,11 +173,11 @@ helper('start_h', xlab = 'Hour of the day', scale_x = 0:23)
 
 
 ### regression
-# print(summary(lm(dur ~ as.factor(start_m), df.all)))
-# print(summary(lm(dur ~ as.factor(start_wk), df.all)))
-# print(summary(lm(dur ~ as.factor(start_w), df.all)))
-# print(summary(lm(dur ~ as.factor(start_d), df.all)))
-# print(summary(lm(dur ~ gg_dis, df.all))) # R2 only 0.0152, too low
+print(summary(lm(dur ~ as.factor(start_m), df.all)))
+print(summary(lm(dur ~ as.factor(start_wk), df.all)))
+print(summary(lm(dur ~ as.factor(start_w), df.all)))
+print(summary(lm(dur ~ as.factor(start_d), df.all)))
+print(summary(lm(dur ~ gg_dis, df.all))) # R2 only 0.0152, too low
 
 
 

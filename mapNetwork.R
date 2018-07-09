@@ -10,7 +10,7 @@ setwd(getSrcDirectory(function () {}))
 
 
 
-network = graph_from_data_frame(
+net = graph_from_data_frame(
   d = df.all[from != '' & to != '', .N, .(from, to)][, .(source = from, target = to, weight = N)],
   directed = T
 ) 
@@ -18,7 +18,7 @@ network = graph_from_data_frame(
 
 # plot it
 plot(
-  network,
+  net,
   edge.arrow.size = 0.375,
   vertex.frame.color = '#aaaaaa',
   vertex.label.color = '#333333',
