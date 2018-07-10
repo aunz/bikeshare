@@ -12,8 +12,11 @@ Languages and packages
   * data.table
   * ggplot
   * plotly
-  * RMarkdown
+  * rmarkdown
+  * crosstalk
+  * leaflet
   * geosphere
+  * igraph
 * JavaScript  
 
 
@@ -55,7 +58,7 @@ By day of the week
 ![](graph/ride_day_of_week.png)
 
 By day of the month
-* Most popular is on the 10th (55529 trips), a big spike compared to the 9th 🤔?
+* Most popular is on the 10th (55529 trips), a big spike compared to the 9th 🤔? (there are many missing data from 1st to 10th)
 * Least popular is on the 1st (9681 trips)
 
 ![](graph/ride_day_of_month.png)

@@ -10,5 +10,6 @@ sapply(setdiff(c(
   'leaflet',
   'DT',
   'crosstalk',
-  'igraph'
+  'igraph',
+  'shiny'
 ), installed.packages()), install.packages)

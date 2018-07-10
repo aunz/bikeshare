@@ -1,0 +1,135 @@
+---
+title: "Bike Share Toronto Ridership Data"
+author: "Kien L"
+date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
+output:
+  html_document:
+    css: style.css
+knit: (function(inputFile, encoding) {
+    rmarkdown::render(
+      inputFile,
+      encoding = encoding,
+      output_file = file.path(dirname(inputFile), 'tmp', 'time.html')
+    )
+  })
+---
+
+
+```{r setup, include = F}
+knitr::opts_chunk$set(echo = F)
+ 
+library(data.table)
+library(ggplot2)
+library(plotly)
+library(htmltools)
+library(crosstalk)
+
+# df.all = readRDS('./tmp/df.all.rds')
+```
+
+
+```{r}
+# change to long format
+helper = function (timeType, measureType, measureFunc, ...) {
+  time = substitute(timeType)
+  timeType = deparse(time)
+
+  measure = substitute(measureType)
+  measureType = deparse(measure)
+  measureFuncType = deparse(substitute(measureFunc))
+
+  print(time)  
+  print(timeType)  
+  tmp1 = df.all[, .(
+    timeType = timeType,
+    .N,
+    measure = measureFunc(eval(measure), ...),
+    measureType = measureType,
+    measureFuncType = measureFuncType,
+    userType = 'All'
+  ), time]
+
+  tmp2 = df.all[user_type == 'Member', .(
+    timeType = timeType,
+    .N,
+    measure = measureFunc(eval(measure), ...),
+    measureType = measureType,
+    measureFuncType = measureFuncType,
+    userType = 'Member'
+  ), time]
+
+  tmp3 = df.all[user_type == 'Casual', .(
+    timeType = timeType,
+    .N,
+    measure = measureFunc(eval(measure), ...),
+    measureType = measureType,
+    measureFuncType = measureFuncType,
+    userType = 'Casual'
+  ), time]
+  
+  rbindlist(list(tmp1, tmp2, tmp3))
+}
+
+# tmp1 = rbindlist(list(
+#   helper(start_m, dur, sum, na.rm = T),
+#   helper(start_wk, dur, sum, na.rm = T),
+#   helper(start_d, dur, sum, na.rm = T),
+#   helper(start_w, dur, sum, na.rm = T),
+#   helper(start_h, dur, sum, na.rm = T)
+# ))
+# 
+# tmp2 = rbindlist(list(
+#   helper(start_m, dur, mean, na.rm = T),
+#   helper(start_wk, dur, mean, na.rm = T),
+#   helper(start_d, dur, mean, na.rm = T),
+#   helper(start_w, dur, mean, na.rm = T),
+#   helper(start_h, dur, mean, na.rm = T)
+# ))
+# 
+# tmp3 = rbindlist(list(
+#   helper(start_m, gg_dis, sum, na.rm = T),
+#   helper(start_wk, gg_dis, sum, na.rm = T),
+#   helper(start_d, gg_dis, sum, na.rm = T),
+#   helper(start_w, gg_dis, sum, na.rm = T),
+#   helper(start_h, gg_dis, sum, na.rm = T)
+# ))
+# 
+# tmp4 = rbindlist(list(
+#   helper(start_m, gg_dis, mean, na.rm = T),
+#   helper(start_wk, gg_dis, mean, na.rm = T),
+#   helper(start_d, gg_dis, mean, na.rm = T),
+#   helper(start_w, gg_dis, mean, na.rm = T),
+#   helper(start_h, gg_dis, mean, na.rm = T)
+# ))
+# 
+# tmp5 = rbindlist(list(
+#   helper(start_m, vel, mean, na.rm = T),
+#   helper(start_wk, vel, mean, na.rm = T),
+#   helper(start_d, vel, mean, na.rm = T),
+#   helper(start_w, vel, mean, na.rm = T),
+#   helper(start_h, vel, mean, na.rm = T)
+# ))
+# 
+# tmp = rbindlist(list(tmp1, tmp2, tmp3, tmp4, tmp5))
+
+sd = SharedData$new(tmp, ~userType, 'select a user')
+
+bscols(
+  widths = c(3, NA),
+  list(
+    filter_checkbox('user_type', 'User Type', sd, ~timeType)
+  ),
+  sd %>%
+    plot_ly(x = ~time, y = ~N) %>%
+    add_markers(color = ~timeType)
+)
+
+# p = ggplot(sd, aes(x = time, y = N)) + geom_point()
+
+# print(p)
+# ggplotly(p)
+
+
+```
+
+<!-- rmarkdown::render('time.Rmd')  -->
