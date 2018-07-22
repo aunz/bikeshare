@@ -109,8 +109,9 @@ tmp[order(n, decreasing = T)]
 # then on 2016-06-10 11:20 to 11:58, a total of 19 bike taken out
 
 # plot
+tmp = rbindlist(list(tmp[, .(from, v)], tmp[, .(to, v)]))[order(from)]
+tmp[, r := ifelse(v == max(v), 1, ifelse(v == min(v), -1, 0))]
 local({
-  tmp = rbindlist(list(tmp[, .(from, v)], tmp[, .(to, v)]))[order(from)]
   p = ggplot(tmp, aes(x = from, y = v)) +
     geom_hline(yintercept = 0, linetype = 'dashed') +
     geom_line() +
@@ -122,9 +123,23 @@ local({
       axis.line = element_line(color = '#CCCCCC')
       # axis.text.x = element_blank()
     ) +
-    scale_x_datetime(date_labels = '%m', date_breaks = '1 month') +
-    ggtitle('Turnover in Union Station') + labs(x = 'Date & Time', y = 'Bike turnoever')
-  ggsave('./graph/union_station_turnover.jpeg', p, device = 'jpeg', width = 50, limitsize = F)
+    ggtitle('Turnover in Union Station') + labs(x = 'Date & Time', y = 'Bike turnoever') +
+    scale_x_datetime(date_labels = '%m', date_breaks = '1 month')
+  
+  # add annotation
+  tmpMax = tmp[r == 1]
+  tmpMax[, (function() {
+    p <<- p + annotate('text', x = from, y = v + 2, label = 'Max (38)')
+    1 # arbitrarily return 1
+  })(), seq_len(nrow(tmpMax))]
+  
+  tmpMin = tmp[r == -1]
+  tmpMin[, (function() {
+    p <<- p + annotate('text', x = from, y = v - 2, label = 'Min (-19)')
+    1
+  })(), seq_len(nrow(tmpMin))]
+
+  ggsave('./graph/union_station_turnover_large.jpeg', p, device = 'jpeg', width = 50, limitsize = F)
   print(p)
   # print(ggplotly(p)) # throw ALTVEC error
 })
