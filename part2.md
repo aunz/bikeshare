@@ -34,4 +34,3 @@ By tallying up these events, we found that:
 Click the graph for a larger version.
 
 The data is not complete, there are many periods when nothing happened 😣.
-
