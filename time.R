@@ -1,3 +1,13 @@
+# convert wide to long format for plotting in a shiny app, take a min to run
+# with these vars:
+# time (Date)
+# timeType (Char): start_date, start_m, start_wk, start_d, start_w, start_h
+# N (Int): number of trip
+# measure (Num): duration, gg_distance, velocity
+# measureFuncType (Char): sum, mean
+# userType (Char): All, Member, Casual
+
+
 library(data.table)
 
 df.all = readRDS('./tmp/df.all.rds')
@@ -74,6 +84,7 @@ tmp5 = rbindlist(list(
 ))
 
 tmp = rbindlist(list(tmp1, tmp2, tmp3, tmp4, tmp5))
+tmp[, userType := factor(userType, levels = c('All', 'Member', 'Casual'))]
 
 saveRDS(tmp, './tmp/df.t.rds')
 
