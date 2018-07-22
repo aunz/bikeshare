@@ -190,3 +190,7 @@ There are many differences between riders with membership and casual riders
 * Predicting trip demand, trip duration, trip routes using machine learning algorithms, from linear regression, Random Forest to neural network.
 
 # 🌞 🚴‍‍ 🚵‍ 💨 ‍‍🚴‍‍ 🚵‍ 🌴 ‍‍🚴‍‍ 🚵‍ 🌙 ⛄ ‍‍🚴‍‍ 🚵‍ 🌎
+
+---
+
+[Part 2](part2.md)
