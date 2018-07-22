@@ -163,7 +163,7 @@ In weekdays, there are more members on the bikes. But in weekend, causal riders 
 In a typical day, members are more active between 11 AM and 2 PM, then between 7 PM and 10 PM. On the other hand, casual riders are more active between 3 PM and 10 PM.
 ![](graph/ride_user_type_hour_of_day.png)
 
-Futhermore, if looking at mean duration of each ride, members spent about 11 minutes in each trip, regardless hour of the day. There are more fluctuation in the mean duration of each ride for casual riders, they spent from an average of 20 minutes tto 33 minutes.
+Futhermore, if looking at mean duration of each ride, members spent about 11 minutes in each trip, regardless hour of the day. There are more fluctuation in the mean duration of each ride for casual riders, they spent from an average of 20 minutes to 33 minutes.
 ![](graph/ride_user_type_hour_of_day_mean.png)
 
 There are many differences between riders with membership and casual riders
