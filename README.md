@@ -41,6 +41,9 @@ There are:
 
 *Distance and velocity were estimated using Google Matrix Distance API
 
+
+**Interactive plots can be found at https://kienly.shinyapps.io/bike/**
+
 By month and week
 * Most trips occur during summer 🌞, as expected.
 * Most popular are Aug (138590 trips), Sep (137384 trips)
@@ -156,6 +159,8 @@ The two furthest stations are: Bloor St W / Dundas St W and Danforth Ave / Barri
 | All | 17567 | 1.85 | 55 ±0.4443 |
 | Member | 4958 (28%) | 0.16 (9%) | 17 ±0.3371 |
 | Casual | 12609 (72%) | 1.68 (91%) | 70 ±0.5504 |
+
+**Interactive plots can be found at https://kienly.shinyapps.io/bike/**
 
 In weekdays, there are more members on the bikes. But in weekend, causal riders roam the city.
 ![](graph/ride_user_type_day_of_week.png)

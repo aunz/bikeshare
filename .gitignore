@@ -3,6 +3,7 @@
 /db
 /.data
 /data
+/rsconnect
 temp
 tmp
 /.env*
