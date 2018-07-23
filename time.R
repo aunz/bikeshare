@@ -86,5 +86,5 @@ tmp5 = rbindlist(list(
 tmp = rbindlist(list(tmp1, tmp2, tmp3, tmp4, tmp5))
 tmp[, userType := factor(userType, levels = c('All', 'Member', 'Casual'))]
 
-saveRDS(tmp, './tmp/df.t.rds')
+saveRDS(tmp, './temp/df.t.rds')
 

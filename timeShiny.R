@@ -4,7 +4,7 @@ library(plotly)
 library(shiny)
 
 # data
-# df.t = readRDS('./tmp/df.t.rds')
+df.t = readRDS('./temp/df.t.rds')
 
 
 userTypeInput = checkboxGroupInput(
