@@ -4,7 +4,7 @@ library(plotly)
 library(shiny)
 
 # data
-df.t = readRDS('./tmp/df.t.rds')
+# df.t = readRDS('./tmp/df.t.rds')
 
 
 userTypeInput = checkboxGroupInput(
@@ -131,11 +131,19 @@ server = function (input, output) {
   
   output$plot3 = renderPlotly({
     data = dataInput()[measureType == 'dur' & measureFuncType == 'mean']
+
     aes = aes(y = measure / 60) # convert to minute
     p = p0 + geom_point(aes, data) + geom_line(aes, data) +
       xlabInput() +
       scaleXInput() +
-      ylab('Mean duration per ride (minute)')
+      ylab('Mean duration per ride (minute)') +
+      geom_hline(
+        aes(yintercept = V1, color = userType),
+        data[, mean(measure / 60, na.rm = T), userType],
+        linetype = 'dashed',
+        alpha = 1/3,
+        show.legend = F
+      )
     
     ggplotly(p)
   })
@@ -153,11 +161,19 @@ server = function (input, output) {
   
   output$plot5 = renderPlotly({
     data = dataInput()[measureType == 'gg_dis' & measureFuncType == 'mean']
+
     aes = aes(y = measure)
     p = p0 + geom_point(aes, data) + geom_line(aes, data) +
       xlabInput() +
       scaleXInput() +
-      ylab('Mean distance per ride (Km)')
+      ylab('Mean distance per ride (Km)') +
+      geom_hline(
+        aes(yintercept = V1, color = userType),
+        data[, mean(measure, na.rm = T), userType],
+        linetype = 'dashed',
+        alpha = 1/3,
+        show.legend = F
+      )
     
     ggplotly(p)
   })
@@ -167,7 +183,14 @@ server = function (input, output) {
     p = p0 + geom_point(aes, data) + geom_line(aes, data) +
       xlabInput() +
       scaleXInput() +
-      ylab('Mean velocity per ride (Km/h)')
+      ylab('Mean velocity per ride (Km/h)') +
+      geom_hline(
+        aes(yintercept = V1, color = userType),
+        data[, mean(measure, na.rm = T), userType],
+        linetype = 'dashed',
+        alpha = 1/3,
+        show.legend = F
+      )
 
     ggplotly(p)
   })
