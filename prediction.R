@@ -55,4 +55,4 @@ print(m2)
 varImp(m2)
 
 
-m3 = train(V1 ~ ., data = data, method = 'gbm', trControl = train.control)
+m3 = train(V1 ~ ., data = data, method = 'knn', trControl = train.control)

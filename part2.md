@@ -96,5 +96,13 @@ Trying to get the data: **air passengers coming to Toronto per day**
 
 # Prediction
 
-## Linear model
-`duration ~ user_type * (temperature + humidity + rain + snow + precipitation + wind + week)`
+Model: `duration ~ user_type + temperature + humidity + rain + snow + precipitation + wind + week`
+
+Using *caret package* 
+
+| Method | RMSE | R2 | MAE | |
+| --- | --- | --- | --- | --- | --- |
+| lm | 244.91 | 0.3947 | 187.25 |
+| rf | 214.42 | 0.5310 | 159.34 | mtry = 15, ntree = 500
+
+
