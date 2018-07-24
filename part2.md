@@ -67,9 +67,10 @@ Linear regression of model:
 | Casual user : Temp | 12.4 |
 | Casual user : Humidity | -3.1 |
 
+
 So members, each degree increase in temperature (C), is associated with 9.2 hours increase in riding duration per day. However, for casual riders, it's 9.2 + 12.4 = 21.6 hours increase in riding duration.
 
-Linear regression is not the best to model temperature, as when it's too hot, no one wants to ride as well!
+Linear regression is not the best to model temperature, as when it's too hot, noone wants to ride as well!
 
 
 ![](graph/weather_temp_vs_dur_all.jpeg)
@@ -82,8 +83,18 @@ We can see that as the days get warmer, the more people are out on bike.
 Obviously, it doesn't snow in summer and autumn 😅
 
 
+The R2 of the model is 0.4578, while that of temperature alone is 0.42, and humidity alone is 0.1409
+So ~46% of the variation in the duration of rides can be attributed to temperature and humidity, what about the rest? Number of visitor, oil/gasoline price, bus driver on strike?
 
 # Air traffic
 
 🤔 Will the number of tourists arriving in Toroto be associated with the number of casual ridership?
 Trying to get the data: **air passengers coming to Toronto per day**
+
+# Oil price
+
+
+# Prediction
+
+## Linear model
+`duration ~ user_type * (temperature + humidity + rain + snow + precipitation + wind + week)`

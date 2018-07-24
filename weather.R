@@ -88,8 +88,9 @@ local({
 })
 
 
-
+###
 # weather vs duration of rides
+###
 tmpR = df.all[, sum(dur, na.rm = T), .(start_m, start_d)]
 setnames(tmpR, c('start_m', 'start_d'), c('Month', 'Day'))
 
@@ -132,24 +133,31 @@ local({
 })
 
 
-
-# weather vs duration of rides
+###
+# weather vs duration of rides + userType
+###
 tmpR = df.all[, sum(dur / 3600, na.rm = T), .(start_m, start_d, user_type)]
 setnames(tmpR, c('start_m', 'start_d'), c('Month', 'Day'))
 
 tmp = Reduce(function (x, y) merge(x, y, by = c('Month', 'Day')), list(tmpW, df.w2, tmpR))
 tmp[, Date := as.Date(paste('2016', tmp$Month, tmp$Day, sep = '-'))]
 tmp[, user_type := factor(user_type, levels = c('Member', 'Casual'))]
+tmp[, Week := (function () {
+  w = as.character(as.POSIXlt(as.Date(Date))$wday)
+  c('0' = 'Su', '1' = 'Mo', '2' = 'Tu', '3' = 'We', '4' = 'Th', '5' = 'Fr', '6' = 'Sa')[w]
+})(), seq_len(nrow(tmp))]
+      
+      
 
-cor(tmp[user_type == 'Member', !c('Month', 'Day', 'Date', 'user_type')])
-corrplot(cor(tmp[user_type == 'Member', !c('Month', 'Day', 'Date', 'user_type')]), type = 'upper')
+cor(tmp[user_type == 'Member', !c('Month', 'Day', 'Week', 'Date', 'user_type')])
+corrplot(cor(tmp[user_type == 'Member', !c('Month', 'Day', 'Week', 'Date', 'user_type')]), type = 'upper')
 
-cor(tmp[user_type == 'Casual', !c('Month', 'Day', 'Date', 'user_type')])
-corrplot(cor(tmp[user_type == 'Casual', !c('Month', 'Day', 'Date', 'user_type')]), type = 'upper')
+cor(tmp[user_type == 'Casual', !c('Month', 'Day', 'Date', 'Week', 'user_type')])
+corrplot(cor(tmp[user_type == 'Casual', !c('Month', 'Day', 'Date', 'Week', 'user_type')]), type = 'upper')
 
 corrplot(cor(tmp[, !c('Month', 'Day', 'Date', 'user_type', 'Temp.y', 'dpTemp')]), type = 'upper')
-corrplot(cor(tmp[user_type == 'Member', !c('Month', 'Day', 'Date', 'user_type', 'Temp.y', 'dpTemp')]), type = 'upper')
-corrplot(cor(tmp[user_type == 'Casual', !c('Month', 'Day', 'Date', 'user_type', 'Temp.y', 'dpTemp')]), type = 'upper')
+corrplot(cor(tmp[user_type == 'Member', !c('Month', 'Day', 'Date', 'Week', 'user_type', 'Temp.y', 'dpTemp')]), type = 'upper')
+corrplot(cor(tmp[user_type == 'Casual', !c('Month', 'Day', 'Date', 'Week', 'user_type', 'Temp.y', 'dpTemp')]), type = 'upper')
 
 
 local({
@@ -179,6 +187,8 @@ local({
   summary(lm(V1 ~ user_type * (Temp.x + RH), tmp)) # R2 of 0.442
   
   # +: Temp, RH, user_type:Temp.x
+  
+  summary(lm(V1 ~ user_type * (Temp.x + RH + Rain + Snow + Ppt + Wind + WindDir + Week), tmp)) # R2 of 0.5649
 
 })
 
