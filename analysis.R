@@ -223,6 +223,7 @@ df.all[from != to & !is.na(vel), .(vel = median(vel, na.rm = T), .N), route][ord
 
 # which route has vel > 25 and N > 100
 df.all[from != to & !is.na(vel), .(vel = median(vel, na.rm = T), .N), route][order(vel)][vel > 25 & N > 100][order(N)]
+
 # some examples
 df.all[route == '161 Bleecker St (South of Wellesley) York St / Queens Quay W', .(.N, vel = median(vel, na.rm = T)), from]
 tmp = df.all[route == '161 Bleecker St (South of Wellesley) York St / Queens Quay W']
@@ -234,6 +235,37 @@ tmp[, .(
   mean_vel = mean(vel, na.rm = T),
   median_vel = median(vel, na.rm = T)
 ), from]
+
+# test the difference using permutation, t.test and wilcox
+local({
+  A = tmp[from == '161 Bleecker St (South of Wellesley)', vel]
+  B = tmp[from == 'York St / Queens Quay W', vel]
+  AB = c(A, B)
+  
+  A_l = length(A)
+  B_l = A_l + 1
+  AB_l = length(AB)
+  
+  d0 = mean(A) - mean(B) # original mean diff
+  
+  # a vector to store subsequent mean, take a min to run
+  d = sapply(1:10000, function (x) {
+    newAB = sample(AB)
+    newA = newAB[1:A_l]
+    newB = newAB[B_l:AB_l]
+    mean(newA) - mean(newB)
+  })
+  
+  hist(d, 100, xlim = c(-4, 4))
+  abline(v = -d0, lty = 2)
+  abline(v = d0, lty = 2)
+  
+  signif((sum(d <= -abs(d0)) + sum(d >= abs(d0))) / length(d)) # 0, so it's very significant
+  
+  # compare with t.test & wilcox test
+  t.test(A, B)
+  wilcox.test(A, B)
+})
 
 
 df.all[route == "161 Bleecker St (South of Wellesley) HTO Park (Queen's Quay W)", .(.N, vel = median(vel, na.rm = T)), from]

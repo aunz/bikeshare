@@ -77,7 +77,7 @@ By hour of the day
 
 ## Observations
 * The number of trip and total trip duration are usually agree with each other by month, by week, by hour; i.e. the more number of trip the higher the total trip duration. However when grouped by **day of the week**, weekends (Saturday and Sunday) have low number of trips but longer total trip duration [graph](). Perhaps people enjoy having a **leisurely ride over the weekends**.
-* On the **10th day of of each month**, the number of trip increases dramatically, not sure why.
+* On the **10th day of of each month**, the number of trip increases dramatically, turned out to be due to missing data.
 * Mean trip velocity (12.97 Km/h) is slightly smaller than Google guessed velocity (14.75 Km/h) with both t-test and Wilcoxon test p-value < 0.001.
 * According to [Wikipedia](https://en.wikipedia.org/wiki/Bicycle_performance), a human typically ride a bike at 16 - 24 Km/h. So our riders are a bit "slow"?
 * There are some trips (N = 1994, 0.34% of all trips) where velocity exceeds 50 Km/h. Of them 1389 are in 50 - 75 Km/h, 368 are in 75 - 100 Km/h, 209 are in 100 - 200 Km/h and 28 are over 200 Km/h. Possible explanation:
@@ -132,7 +132,8 @@ Not all A -> B trips are the same as B -> A trips. For example, between Bleecker
 | A -> B | 690 | 151 | 13 | 27 |
 | B -> A | 510 | 136 | 16 | 23 |
 
-A t-test indicates that the duration and velocity from A -> B are significantly different from B -> A. Maybe there are terrestrial differences (slope)?
+Statistical test indicate that the duration and velocity from A -> B are significantly different from B -> A, with t.test p-value < 10<sup>-9</sup>, Wilcoxon p-value < 10<sup>-10</sup> and permutation test p-value = 0 (10000 trials).
+Maybe there are terrestrial differences (slope), wind direction?
 
 ### Distance
 The two furthest stations are: Bloor St W / Dundas St W and Danforth Ave / Barrington Ave: 13 Km. No trip was registered on this route *YET* 😎.
