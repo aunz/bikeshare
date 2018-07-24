@@ -98,7 +98,7 @@ Trying to get the data: **air passengers coming to Toronto per day**
 
 Model: `duration ~ user_type + temperature + humidity + rain + snow + precipitation + wind + week`
 
-Using *caret package* 
+Using *caret package* 🥕
 
 | Method | RMSE | R2 | MAE | |
 | --- | --- | --- | --- | --- | --- |
