@@ -13,3 +13,5 @@ sapply(setdiff(c(
   'igraph',
   'shiny'
 ), installed.packages()), install.packages)
+
+df.all = readRDS('./tmp/df.all.rds')
