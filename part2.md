@@ -34,3 +34,56 @@ By tallying up these events, we found that:
 Click the graph for a larger version.
 
 The data is not complete, there are many periods when nothing happened 😣.
+
+
+
+# Weather ☀️☁️🌈🌧️🌦️🌨️❄️💨
+
+I am pretty sure that weather affects ridership, but which weather factors: temperature, humidity, rain, snow, wind. Let's check out
+
+- Obtain the weather data from ftp://ftp.tor.ec.gc.ca/Pub/Get_More_Data_Plus_de_donnees/ for Toronto
+
+
+### For all user
+![](graph/weather_cor_all.jpeg)
+
+Duration of ride per day (V1) is positively associated with temperature, but negatively associated with humidity. Rain , snow, and wind do not seem to affect riding duration.
+
+The correlation between riding duration and temperature:
+- All user: 0.599
+- Member: 0.488
+- Casual: 0.700
+
+Linear regression of model: 
+`duration ~ user_type * (temperature + humidity + rain + snow + precipitation + wind)`
+
+
+| variable | beta |  |
+| --- | --- | --- | --- | --- | --- |
+| Intercept | 501.9 |
+| Casual user | -24.5 | 
+| Temp | 9.2 |
+| Humidity | -2.7 |
+| Casual user : Temp | 12.4 |
+| Casual user : Humidity | -3.1 |
+
+So members, each degree increase in temperature (C), is associated with 9.2 hours increase in riding duration per day. However, for casual riders, it's 9.2 + 12.4 = 21.6 hours increase in riding duration.
+
+Linear regression is not the best to model temperature, as when it's too hot, no one wants to ride as well!
+
+
+![](graph/weather_temp_vs_dur_all.jpeg)
+
+We can see that as the days get warmer, the more people are out on bike.
+
+
+![](graph/weather_snow_vs_dur_all.jpeg)
+
+Obviously, it doesn't snow in summer and autumn 😅
+
+
+
+# Air traffic
+
+🤔 Will the number of tourists arriving in Toroto be associated with the number of casual ridership?
+Trying to get the data: **air passengers coming to Toronto per day**
