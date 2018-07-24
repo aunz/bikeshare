@@ -17,6 +17,10 @@ Languages and packages
   * leaflet
   * geosphere
   * igraph
+  * caret
+  * randomforest
+  * corrplot
+  * DT
 * JavaScript  
 
 
