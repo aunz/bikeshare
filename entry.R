@@ -11,7 +11,10 @@ sapply(setdiff(c(
   'DT',
   'crosstalk',
   'igraph',
-  'shiny'
+  'shiny',
+  'caret',
+  'randomForest',
+  'corrplot'
 ), installed.packages()), install.packages)
 
 df.all = readRDS('./tmp/df.all.rds')
