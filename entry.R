@@ -1,5 +1,4 @@
-# set working dir to this script
-setwd(getSrcDirectory(function () {}))
+setwd(getSrcDirectory(function () {})) # set working dir to this script
 
 # libraries
 sapply(setdiff(c(
@@ -17,4 +16,9 @@ sapply(setdiff(c(
   'corrplot'
 ), installed.packages()), install.packages)
 
+
+# source('./importData.R')
+
 df.all = readRDS('./tmp/df.all.rds')
+
+

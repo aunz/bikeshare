@@ -1,13 +1,7 @@
-setwd(getSrcDirectory(function () {}))
-
 # install libraries
 library(data.table)
 library(ggplot2)
 library(plotly)
-
-
-# read the data
-df.all = readRDS('./tmp/df.all.rds')
 
 
 ### Exploratory
@@ -95,10 +89,8 @@ helper('start_d', 'Day of the month', 1:31)
 helper('start_h', 'Hour of the day', 0:23)
 
 
-
 length(df.all[dur > 1800, dur - 1800]) # trips over 30 mins
 sum(df.all[dur > 1800, dur - 1800]) / 3600 # total time 
-
 
 
 ### Trip distance
@@ -185,7 +177,7 @@ print(summary(lm(dur ~ gg_dis, df.all))) # R2 only 0.0152, too low
 df.all[, .N, from][order(N)]
 df.all[, .N, to][order(N)]
 
-
+# most popular from station
 df.all[, .N, .(from, to)][order(N, decreasing = T)]
 
 # trips with only 1 instance
@@ -211,9 +203,9 @@ sum(tmp[from == to, dur])
 sum(df.all[from == to, dur])
 
 df.all[, .(.N), route][order(N)] # in terms of number of trip
-df.all[, .(N = sum(dur, na.rm = T) / 3600), route][order(N)]
-df.all[, .(N = sum(gg_dis, na.rm = T)), route][order(N)]
-df.all[!is.na(vel), .(N = mean(vel, na.rm = T)), route][order(N)]
+df.all[, .(N = sum(dur, na.rm = T) / 3600), route][order(N)] # duration
+df.all[, .(N = sum(gg_dis, na.rm = T)), route][order(N)] # distance by google
+df.all[!is.na(vel), .(N = mean(vel, na.rm = T)), route][order(N)] # vel
 
 df.all[from != to, .(.N), route][order(N)] # in terms of number of trip
 df.all[from != to, .(N = sum(dur, na.rm = T) / 3600), route][order(N)]
@@ -221,8 +213,13 @@ df.all[from != to, .(N = sum(gg_dis, na.rm = T) / 1000), route][order(N)]
 df.all[from != to & !is.na(vel), .(vel = median(vel, na.rm = T), .N), route][order(vel)][N > 500]
 df.all[from != to & !is.na(vel), .(vel = median(vel, na.rm = T), .N), route][order(vel)][N > 100 & N < 500]
 
+
 # which route has vel > 25 and N > 100
 df.all[from != to & !is.na(vel), .(vel = median(vel, na.rm = T), .N), route][order(vel)][vel > 25 & N > 100][order(N)]
+
+# velocity decreasing, top 100
+df.all[from != to & !is.na(vel), .(vel = median(vel, na.rm = T), .N), route][order(vel, decreasing = T)][1:100]
+df.all[route == 'College St W / Crawford St Mortimer Ave / Coxwell Ave']
 
 # some examples
 df.all[route == '161 Bleecker St (South of Wellesley) York St / Queens Quay W', .(.N, vel = median(vel, na.rm = T)), from]
@@ -236,8 +233,14 @@ tmp[, .(
   median_vel = median(vel, na.rm = T)
 ), from]
 
+
 # test the difference using permutation, t.test and wilcox
 local({
+  # t.test & wilcox test
+  t.test(A, B)
+  wilcox.test(A, B)
+
+  # permutation
   A = tmp[from == '161 Bleecker St (South of Wellesley)', vel]
   B = tmp[from == 'York St / Queens Quay W', vel]
   AB = c(A, B)
@@ -262,9 +265,6 @@ local({
   
   signif((sum(d <= -abs(d0)) + sum(d >= abs(d0))) / length(d)) # 0, so it's very significant
   
-  # compare with t.test & wilcox test
-  t.test(A, B)
-  wilcox.test(A, B)
 })
 
 
