@@ -58,8 +58,8 @@ Linear regression of model:
 `duration ~ user_type * (temperature + humidity + rain + snow + precipitation + wind)`
 
 
-| variable | beta |  |
-| --- | --- | --- | --- | --- | --- |
+| variable | beta |
+| --- | --- |
 | Intercept | 501.9 |
 | Casual user | -24.5 | 
 | Temp | 9.2 |
@@ -100,8 +100,8 @@ Model: `duration ~ user_type + temperature + humidity + rain + snow + precipitat
 
 Using *caret package* 🥕
 
-| Method | RMSE | R2 | MAE | |
-| --- | --- | --- | --- | --- | --- |
+| Method | RMSE | R2 | MAE |
+| --- | --- | --- | --- |
 | lm | 244.91 | 0.3947 | 187.25 |
 | rf | 214.42 | 0.5310 | 159.34 | mtry = 15, ntree = 500
 
