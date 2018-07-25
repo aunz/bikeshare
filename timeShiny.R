@@ -166,7 +166,7 @@ server = function (input, output) {
     p = p0 + geom_point(aes, data) + geom_line(aes, data) +
       xlabInput() +
       scaleXInput() +
-      ylab('Mean distance per ride (Km)') +
+      ylab('Mean distance per ride (m)') +
       geom_hline(
         aes(yintercept = V1, color = userType),
         data[, mean(measure, na.rm = T), userType],
