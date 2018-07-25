@@ -91,6 +91,10 @@ So ~46% of the variation in the duration of rides can be attributed to temperatu
 🤔 Will the number of tourists arriving in Toroto be associated with the number of casual ridership?
 Trying to get the data: **air passengers coming to Toronto per day**
 
+- In 2016: more than 40m tourists visit Toronto
+- Number of casual riders: ~150k, or 0.375%
+- How can you grow more?
+
 # Oil price
 
 
