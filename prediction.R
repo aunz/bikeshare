@@ -1,8 +1,6 @@
 ###
 # Prediction
 # compare models: lm, randomForest
-
-
 ###
 
 library(data.table)
