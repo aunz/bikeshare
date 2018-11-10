@@ -170,7 +170,7 @@ The two furthest stations are: Bloor St W / Dundas St W and Danforth Ave / Barri
 In weekdays, there are more members on the bikes. But in weekend, causal riders roam the city.
 ![](graph/ride_user_type_day_of_week.png)
 
-In a typical day, members are more active between 11 AM and 2 PM, then between 7 PM and 10 PM. On the other hand, casual riders are more active between 3 PM and 10 PM.
+In a typical day, members are more active between 7 AM and 8 AM, then between 3 PM and 5 PM. On the other hand, casual riders are more active between 10 AM and 5 PM.
 ![](graph/ride_user_type_hour_of_day.png)
 
 Futhermore, if looking at mean duration of each ride, members spent about 11 minutes in each trip, regardless hour of the day. There are more fluctuation in the mean duration of each ride for casual riders, they spent from an average of 20 minutes to 33 minutes.
