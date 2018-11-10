@@ -24,8 +24,10 @@ df.rides[, c(c(
   'stop_date', 'stop_y','stop_m', 'stop_wk', 'stop_w', 'stop_d', 'stop_h',
   'overnight'
 )) := (function (x, y) {
-  x =  as.POSIXlt(x, format = '%d/%m/%Y %H:%M')
-  y =  as.POSIXlt(y, format = '%d/%m/%Y %H:%M')
+  x = as.POSIXct(x, tz = 'UTC', format = '%d/%m/%Y %H:%M') # extract to postixcl (epoch)
+  x = as.POSIXlt(x, tz = 'EST') # change time zone
+  y = as.POSIXct(y, tz = 'UTC', format = '%d/%m/%Y %H:%M')
+  y = as.POSIXlt(y, tz = 'EST')
   x.date = as.Date(x)
   y.date = as.Date(y)
   list(
